@@ -25,8 +25,12 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+import cris.hackathon.cosanostra.models.Match;
+import cris.hackathon.cosanostra.models.User;
+import cris.hackathon.cosanostra.services.firebase.MatchRepository;
 import cris.hackathon.cosanostra.uiComponents.god.GodActivity;
 import cris.hackathon.cosanostra.uiComponents.main.MainActivity;
+import rx.functions.Action1;
 
 public class LoginActivity extends AppCompatActivity implements
         View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
@@ -48,6 +52,40 @@ public class LoginActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        User user1 = new User("id1", "name1");
+        User user2 = new User("id1", "name1");
+        Match match1 = new Match("Pepita");
+        Match match2 = new Match("Pepona");
+
+        MatchRepository repo = new MatchRepository();
+        repo.createEmptyMatch(match1).subscribe(new Action1<Match>() {
+            @Override
+            public void call(Match match) {
+                System.out.print("Partido " + match.name);
+            }
+        });
+
+        repo.createEmptyMatch(match2).subscribe(new Action1<Match>() {
+            @Override
+            public void call(Match match) {
+                System.out.print("Partido " + match.name);
+            }
+        });
+
+//        repo.joinToMatch(user1,match1).subscribe(new Action1<User>() {
+//            @Override
+//            public void call(User user) {
+//                System.out.print("Jugador " + user.getUserName());
+//            }
+//        });
+//        repo.joinToMatch(user2,match1).subscribe(new Action1<User>() {
+//            @Override
+//            public void call(User user) {
+//                System.out.print("Jugador " + user.getUserName());
+//            }
+//        });
+
 
         btnSignIn = (SignInButton) findViewById(R.id.btn_sign_in);
         btnSignOut = (Button) findViewById(R.id.btn_sign_out);

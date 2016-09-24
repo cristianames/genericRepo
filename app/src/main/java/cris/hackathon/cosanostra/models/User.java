@@ -10,12 +10,10 @@ import java.util.Optional;
 /**
  * Created by Julieta on 18/09/16.
  */
-@TargetApi(Build.VERSION_CODES.N)
 public class User {
 
     private String _googleId;
     private String _userName;
-    private Optional<DatabaseReference> _ref = Optional.empty();
 
     public Role role;
 
@@ -32,8 +30,4 @@ public class User {
         return _userName;
     }
 
-    @TargetApi(Build.VERSION_CODES.N)
-    public void setRef(DatabaseReference reference) {
-        _ref = Optional.of(reference);
-    }
 }
